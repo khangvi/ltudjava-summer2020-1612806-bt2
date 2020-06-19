@@ -49,7 +49,7 @@ public class DoiMatKhau extends JFrame {
         contentPane.add(password_old);
 
         JLabel lbl_icon = new JLabel("");
-        lbl_icon.setIcon(new ImageIcon("image\\icon_changepw.png"));
+        lbl_icon.setIcon(new ImageIcon(getClass().getResource("/image/icon_changepw.png")));
         lbl_icon.setBounds(41, 11, 100, 100);
         contentPane.add(lbl_icon);
 

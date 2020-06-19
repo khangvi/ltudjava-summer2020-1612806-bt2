@@ -103,7 +103,7 @@ public class GiaoDienSinhVien extends JFrame {
         contentPane.add(lblNewLabel);
         
         JLabel lbl_icon = new JLabel("");
-        lbl_icon.setIcon(new ImageIcon("image\\icon_portal.png"));
+        lbl_icon.setIcon(new ImageIcon(getClass().getResource("/image/icon_portal.png")));
         lbl_icon.setBounds(10, 5, 209, 177);
         contentPane.add(lbl_icon);
         setLocationRelativeTo(null);

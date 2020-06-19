@@ -62,7 +62,7 @@ public class DangNhap extends JFrame {
         contentPane.add(btnNewButton);
 
         lbl_icon_login = new JLabel("");
-        lbl_icon_login.setIcon(new ImageIcon("D:\\javacode\\Hibernate_Swing\\src\\main\\resources\\image\\login_icon.png"));
+        lbl_icon_login.setIcon(new ImageIcon(getClass().getResource("/image/login_icon.png")));
         lbl_icon_login.setBounds(57, 15, 135, 163);
         contentPane.add(lbl_icon_login);
 

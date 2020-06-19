@@ -113,7 +113,7 @@ public class ThemSinhVienVaoLop extends JDialog {
         }
         {
             JLabel lblNewLabel_5 = new JLabel("");
-            lblNewLabel_5.setIcon(new ImageIcon("image\\add_icon.jpg"));
+            lblNewLabel_5.setIcon(new ImageIcon(getClass().getResource("/image/add_icon.jpg")));
             lblNewLabel_5.setBounds(24, 48, 57, 47);
             contentPanel.add(lblNewLabel_5);
         }
