@@ -24,17 +24,14 @@ public class SinhVien implements Serializable {
     private List<MonHoc> listmh_sv;
     
     public SinhVien() {
-        this.listds = new ArrayList<DiemSo>();
-        this.listmh_sv = new ArrayList<MonHoc>();
+        
     }
     
     public SinhVien(String mssv, String hoten, String gioitinh, String cmnd) {     
         this.mssv = mssv;
         this.hoten = hoten;
         this.gioitinh = gioitinh;
-        this.cmnd = cmnd;
-        this.listds = new ArrayList<DiemSo>();
-        this.listmh_sv = new ArrayList<MonHoc>(); 
+        this.cmnd = cmnd;    
     }
     
     public TaiKhoan getTaikhoan() {

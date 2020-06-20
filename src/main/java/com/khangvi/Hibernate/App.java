@@ -1,11 +1,11 @@
-package com.hibernate.main;
+package com.khangvi.Hibernate;
 
 import java.awt.EventQueue;
 import org.hibernate.SessionFactory;
 import com.hibernate.ui.DangNhap;
 import com.hibernate.until.HibernateUtil;
 
-public class Main {   
+public class App {   
     static final SessionFactory factory = HibernateUtil.getSessionFactory();
 
     public static void main(String[] args) {    
@@ -23,3 +23,4 @@ public class Main {
               
     }
 }
+

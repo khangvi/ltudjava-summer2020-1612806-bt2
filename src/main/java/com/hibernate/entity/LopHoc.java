@@ -15,15 +15,11 @@ public class LopHoc implements Serializable{
     @OneToMany(mappedBy="lh_mh")
     private List<MonHoc> listmh_lh;
     
-    public LopHoc() {
-        this.listsv_lh = new ArrayList<SinhVien>();
-        this.listmh_lh = new ArrayList<MonHoc>();
+    public LopHoc() {      
     }
     
     public LopHoc(String malop) {
-        this.malop = malop;
-        this.listsv_lh = new ArrayList<SinhVien>();
-        this.listmh_lh = new ArrayList<MonHoc>();
+        this.malop = malop;    
     }
     
     public String getMalop() {

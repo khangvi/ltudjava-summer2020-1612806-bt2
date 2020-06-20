@@ -31,36 +31,39 @@ public class GiaoDienGiaoVu extends JFrame {
     private JTextField txt_filepath;
     private JComboBox<String> combo_subjectID;
     private JTable table_1;
+    JLabel lbl_svrot;
+    JLabel lbl_tongsvmonhoc;
+    JLabel lbl_tongsvlop;
 
     public GiaoDienGiaoVu() {
         setTitle("Giao diện giáo vụ");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 735, 516);
+        setBounds(100, 100, 735, 525);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
         JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-        tabbedPane.setBounds(0, 0, 729, 477);
+        tabbedPane.setBounds(0, 0, 729, 486);
         contentPane.add(tabbedPane);
 
         JPanel tab_home = new JPanel();
         tab_home.setBackground(Color.WHITE);
         tabbedPane.addTab("Home", null, tab_home, null);
         tab_home.setLayout(null);
-        
+
         JLabel lblNewLabel_2 = new JLabel("Xin chào");
         lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 15));
         lblNewLabel_2.setBounds(333, 11, 75, 25);
         tab_home.add(lblNewLabel_2);
-        
+
         JLabel lblNewLabel_3 = new JLabel("<Giáo vụ>");
         lblNewLabel_3.setForeground(Color.BLUE);
         lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 13));
         lblNewLabel_3.setBounds(412, 12, 69, 25);
         tab_home.add(lblNewLabel_3);
-        
+
         JButton btn_changepassword = new JButton("Đổi mật khẩu");
         btn_changepassword.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -69,7 +72,7 @@ public class GiaoDienGiaoVu extends JFrame {
         });
         btn_changepassword.setBounds(494, 14, 110, 23);
         tab_home.add(btn_changepassword);
-        
+
         JButton btn_signout = new JButton("Đăng xuất");
         btn_signout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -164,6 +167,10 @@ public class GiaoDienGiaoVu extends JFrame {
         });
         btnNewButton.setBounds(309, 60, 146, 31);
         tab_classmanager.add(btnNewButton);
+        
+        lbl_tongsvlop = new JLabel("");
+        lbl_tongsvlop.setBounds(22, 418, 137, 18);
+        tab_classmanager.add(lbl_tongsvlop);
 
         JPanel tab_subject = new JPanel();
         tabbedPane.addTab("Quản lý môn học", null, tab_subject, null);
@@ -267,6 +274,15 @@ public class GiaoDienGiaoVu extends JFrame {
         btn_showmark.setBounds(321, 71, 95, 26);
         tab_subject.add(btn_showmark);
 
+        lbl_tongsvmonhoc = new JLabel("");
+        lbl_tongsvmonhoc.setBounds(217, 418, 181, 14);
+        tab_subject.add(lbl_tongsvmonhoc);
+
+        lbl_svrot = new JLabel("");
+        lbl_svrot.setToolTipText("");
+        lbl_svrot.setBounds(217, 433, 172, 14);
+        tab_subject.add(lbl_svrot);
+
         setLocationRelativeTo(null);
     }
 
@@ -282,6 +298,7 @@ public class GiaoDienGiaoVu extends JFrame {
             for (SinhVien sv : list) {
                 model.addRow(new Object[] { ++i, sv.getMssv(), sv.getHoten(), sv.getGioitinh(), sv.getCmnd() });
             }
+            lbl_tongsvlop.setText("Tổng sinh viên: " + list.size());
         } else
             JOptionPane.showMessageDialog(rootPane, "Chưa chọn lớp cần xem");
     }
@@ -300,6 +317,8 @@ public class GiaoDienGiaoVu extends JFrame {
             for (SinhVien sv : list) {
                 model.addRow(new Object[] { ++i, sv.getMssv(), sv.getHoten(), sv.getGioitinh(), sv.getCmnd() });
             }
+            lbl_tongsvmonhoc.setText("Tổng sinh viên: " + list.size());
+            lbl_svrot.setText("");
         } else
             JOptionPane.showMessageDialog(rootPane, "Chưa chọn lớp cần xem");
     }
@@ -319,6 +338,7 @@ public class GiaoDienGiaoVu extends JFrame {
                 model.addRow(new Object[] { ++i, mh.getMamon(), mh.getTenmon(), mh.getPhonghoc(), mh.getTietbatdau(),
                         mh.getTietketthuc() });
             }
+            lbl_tongsvlop.setText("");
         } else
             JOptionPane.showMessageDialog(rootPane, "Chưa chọn lớp cần xem");
     }
@@ -329,16 +349,25 @@ public class GiaoDienGiaoVu extends JFrame {
             List<DiemSo> list = new HibernateUtil().layDanhSachDiemSo(mamon);
 
             DefaultTableModel model = (DefaultTableModel) table_1.getModel();
-            model.setColumnIdentifiers(
-                    new String[] { "STT", "MSSV", "Họ tên", "Điểm giữa kỳ", "Điểm cuối kỳ", "Điểm khác", "Điểm tổng" });
+            model.setColumnIdentifiers(new String[] { "STT", "MSSV", "Họ tên", "Điểm giữa kỳ", "Điểm cuối kỳ",
+                    "Điểm khác", "Điểm tổng", "Kết quả" });
             model.setRowCount(0);
             table_1.getColumnModel().getColumn(2).setPreferredWidth(120);
 
             int stt = 0;
+            int svrot = 0;
             for (var ds : list) {
+                String ketqua = "Qua môn";
+                if (ds.getDiemtong() < 5) {
+                    ketqua = "Rớt";
+                    ++svrot;
+                }
+
                 model.addRow(new Object[] { ++stt, ds.getSv().getMssv(), ds.getHoten(), ds.getDiemgk(), ds.getDiemck(),
-                        ds.getDiemkhac(), ds.getDiemtong() });
+                        ds.getDiemkhac(), ds.getDiemtong(), ketqua });
             }
+            lbl_tongsvmonhoc.setText("Tổng sinh viên: " + list.size());
+            lbl_svrot.setText("Sinh viên rớt: " + svrot + " (" + (svrot * 100) / list.size() + "%)");
         } else
             JOptionPane.showMessageDialog(rootPane, "Chưa chọn môn cần xem");
     }
@@ -416,7 +445,7 @@ public class GiaoDienGiaoVu extends JFrame {
         } else
             JOptionPane.showMessageDialog(rootPane, "Chưa chọn dòng để sửa");
     }
-    
+
     public void btn_ThemSinhVienVaoMonHoc() {
         String mamon = (String) combo_subjectID.getSelectedItem();
         ThemSinhVienVaoMonHoc dialog = new ThemSinhVienVaoMonHoc(this, rootPaneCheckingEnabled, mamon);

@@ -7,7 +7,8 @@ import javax.persistence.*;
 @Entity(name="diemso")
 public class DiemSo implements Serializable{
     @Id
-    private int id;
+    private String id;
+    private String hoten;
     private float diemgk;
     private float diemck;
     private float diemkhac;
@@ -17,11 +18,26 @@ public class DiemSo implements Serializable{
     @ManyToOne
     private MonHoc mh;
        
+    public DiemSo() {
+        
+    }
     
-    public int getId() {
+    
+    
+    public DiemSo(String id, String hoten, float diemgk, float diemck, float diemkhac, float diemtong) {
+        super();
+        this.id = id;
+        this.hoten = hoten;
+        this.diemgk = diemgk;
+        this.diemck = diemck;
+        this.diemkhac = diemkhac;
+        this.diemtong = diemtong;
+    }
+
+    public String getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
     public SinhVien getSv() {
@@ -60,6 +76,11 @@ public class DiemSo implements Serializable{
     public void setDiemtong(float diemtong) {
         this.diemtong = diemtong;
     }
-    
+    public String getHoten() {
+        return hoten;
+    }
+    public void setHoten(String hoten) {
+        this.hoten = hoten;
+    }
     
 }
